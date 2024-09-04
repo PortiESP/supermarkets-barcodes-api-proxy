@@ -8,19 +8,21 @@ const API = {
     URL:"scanbot/wp-json/upc/v1/lookup/"
 }
 
-// ------------------------------------------------------------------------
+// ===============================[ Fetchers ]===============================
 
 export async function fetchProductByCode(code){
-    const url = API.URL + code
-    const response = await fetch(url)
+    const url = API.URL + code  // URL to fetch the product data
+    const response = await fetch(url)  // Fetch the product data from the API
 
+    // Parse the response based on the API
     const parsedResponse = API.name === "scanbot" ? await parseScanbotResponse(response) 
                             : await response.text()     
 
+    // Return the parsed response
     return {error: !parsedResponse, product: parsedResponse}    
 }
 
-// ------------------------------------------------------------------------
+// ===============================[ Parsers ]===============================
 
 async function parseScanbotResponse(response){
     const json = await response.json()

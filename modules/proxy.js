@@ -1,6 +1,16 @@
 import { addToDatabase, checkDatabase } from "./db.js"
 import { fetchProductByCode } from "./queryAPI.js"
 
+
+/**
+ * 
+ * @param {Number} code The barcode number that will be consulted
+ * @returns An object containing the following information
+ * - `error` : Whether if the search found a corresponding product for the barcode or not
+ * - `product` : The object containing the product data
+ * - `source` : Contains whether if the product data was retrieved from the "API" of the "database"
+ * - `cached_for` : Time in ms since the last update of the product
+ */
 export async function queryBarcode(code){
     // Check if the product is already in the database
     let {exists, product} = await checkDatabase(code)
@@ -25,9 +35,9 @@ export async function queryBarcode(code){
     }
 
     return {
+        error: false,
         product,
         source: exists ? "database" : "API",
         cached_for: Date.now() - product.timestamp_added,
-        error: false
     }
 }
