@@ -27,6 +27,7 @@ export async function queryBarcode(code){
     return {
         product,
         source: exists ? "database" : "API",
-        cached_for: Date.now() - product.timestamp_added
+        cached_for: Date.now() - product.timestamp_added,
+        error: false
     }
 }
