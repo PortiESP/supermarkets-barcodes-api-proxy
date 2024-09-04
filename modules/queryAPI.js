@@ -1,7 +1,11 @@
 const API = {
     // Scanbot API
+    // name: "scanbot",
+    // URL:"https://scanbot.io/wp-json/upc/v1/lookup/"
+
+    // Scanbot API (proxy)
     name: "scanbot",
-    URL:"https://scanbot.io/wp-json/upc/v1/lookup/"
+    URL:"scanbot/wp-json/upc/v1/lookup/"
 }
 
 // ------------------------------------------------------------------------
@@ -21,6 +25,8 @@ export async function fetchProductByCode(code){
 async function parseScanbotResponse(response){
     const json = await response.json()
     const prod = json.product
+
+    if (!prod) return null
 
     return {
         name: prod.name,
