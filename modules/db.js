@@ -3,9 +3,13 @@
 const DATABASE = {}
 // -------------
 // --- MongoDB Atlas ---
+import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb'
+dotenv.config()
 const uri = process.env.MONGODB_URI
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+let client
+try{client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })}
+catch(e){console.error("MongoDB URI not found in the environment variables")}
 const CACHE = {}
 // ----------------------
 
@@ -31,7 +35,7 @@ export async function checkDatabase(code, format){
  * @param {Object} product Product that will be stored in the DB under the code provided
  */
 export async function addToDatabase(code, format, product){
-    checkMongoDB(code, format, product)  // Replace with a utils function in case of changing the DB provider
+    addToMongoDB(code, format, product)  // Replace with a utils function in case of changing the DB provider
 }
 
 
