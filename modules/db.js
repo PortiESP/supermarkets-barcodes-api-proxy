@@ -31,7 +31,7 @@ export async function checkDatabase(code, format){
  * @param {Object} product Product that will be stored in the DB under the code provided
  */
 export async function addToDatabase(code, format, product){
-    addToMongoDB(code, format, product)  // Replace with a utils function in case of changing the DB provider
+    checkMongoDB(code, format, product)  // Replace with a utils function in case of changing the DB provider
 }
 
 
@@ -50,7 +50,7 @@ function addToMemoryDB(code, product) {
 // ------------------------------------------------------------------------------------------>
 // ----------------------------------------- MongoDB ----------------------------------------->
 
-async function checkMongoDB(code) {
+async function checkMongoDB(code, format="ean") {
     if (CACHE[code]) return CACHE[code]
     await client.connect()
     const collection = client.db("BARCODES").collection(format)

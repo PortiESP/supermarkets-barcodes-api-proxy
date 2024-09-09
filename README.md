@@ -14,6 +14,11 @@ There is two ways to use this repo
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+## Proxy database  
+
+> ⚠️ **Important note**
+> Update the `.env` file with the corresponding values for the database connection
+
 ## Examples
 
 ### Example of the option: As a standalone API server
@@ -27,7 +32,7 @@ node server.js
 **Client**
 
 ```js
-fetch("mydomain.com:1234/query=12345678")
+fetch("mydomain.com:1234/query?barcode=12345678")
 .then(res => res.json())
 .then(console.log)
 ```

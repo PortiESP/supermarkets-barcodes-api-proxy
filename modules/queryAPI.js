@@ -12,14 +12,21 @@ const API = {
 
 export async function fetchProductByCode(code){
     const url = API.URL + code  // URL to fetch the product data
-    const response = await fetch(url)  // Fetch the product data from the API
+    try{
+        const response = await fetch(url)  // Fetch the product data from the API
 
-    // Parse the response based on the API
-    const parsedResponse = API.name === "scanbot" ? await parseScanbotResponse(response) 
-                            : await response.text()     
+        // Parse the response based on the API
+        const parsedResponse = API.name === "scanbot" ? await parseScanbotResponse(response) 
+                                : await response.text()     
+    
+        // Return the parsed response
+        return {error: !parsedResponse, product: parsedResponse}    
+    }
+    catch(e){
+        console.error(`Error fetching the product data: ${e}`)
+        return {error: true, product: null}
+    }
 
-    // Return the parsed response
-    return {error: !parsedResponse, product: parsedResponse}    
 }
 
 // ===============================[ Parsers ]===============================
