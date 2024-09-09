@@ -51,6 +51,12 @@ function addToMemoryDB(code, product) {
 // ----------------------------------------- MongoDB ----------------------------------------->
 
 async function checkMongoDB(code, format="ean") {
+    const formats = {
+        ean: "ean",
+        ean_13: "ean",
+    }
+    format = formats[format] || format
+
     if (CACHE[code]) return CACHE[code]
     await client.connect()
     const collection = client.db("BARCODES").collection(format)
