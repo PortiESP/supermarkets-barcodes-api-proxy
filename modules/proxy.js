@@ -5,15 +5,16 @@ import { fetchProductByCode } from "./queryAPI.js"
 /**
  * 
  * @param {Number} code The barcode number that will be consulted
+ * @param {String} format The format of the barcode (e.g. "ean", "upc", etc.)
  * @returns An object containing the following information
  * - `error` : Whether if the search found a corresponding product for the barcode or not
  * - `product` : The object containing the product data
  * - `source` : Contains whether if the product data was retrieved from the "API" of the "database"
  * - `cached_for` : Time in ms since the last update of the product
  */
-export async function queryBarcode(code){
+export async function queryBarcode(code, format){
     // Check if the product is already in the database
-    let {exists, product} = await checkDatabase(code)
+    let {exists, product} = await checkDatabase(code, format)
 
     console.log(`\n[i] Product ${code} ${exists ? "found" : "not found"} in database`)
 
