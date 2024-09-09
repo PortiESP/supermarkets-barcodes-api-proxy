@@ -32,7 +32,7 @@ node server.js
 **Client**
 
 ```js
-fetch("mydomain.com:1234/query?barcode=12345678")
+fetch("mydomain.com:1234/query?barcode=12345678&format=ean")
 .then(res => res.json())
 .then(console.log)
 ```
@@ -44,7 +44,7 @@ import { queryBarcode } from './supermarkets-barcodes-api-proxy/modules/proxy'
 
 // ...
 
-queryBarcode(12345678)
+queryBarcode(12345678, "ean")
 .then(res => res.json())
 .then(console.log)
 ```
